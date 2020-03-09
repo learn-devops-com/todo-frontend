@@ -34,7 +34,7 @@ class TodoListItem extends React.Component {
         <li className="list-group-item ">
           <div className={todoClass}>
             <span className="glyphicon glyphicon-ok icon" aria-hidden="true" onClick={this.onClickDone}></span>
-            {this.props.item.value}
+            {this.props.item.title}
             <button type="button" className="close" onClick={this.onClickClose}>&times;</button>
           </div>
         </li>
@@ -76,19 +76,26 @@ class TodoHeader extends React.Component {
 }
 
 class TodoApp extends React.Component {
-  todoItems = [
-    {index: 1, value: "learn react", done: false},
-    {index: 2, value: "Go shopping", done: true},
-    {index: 3, value: "buy flowers", done: true}
-  ];
-
   constructor (props) {
     super(props);
     this.addItem = this.addItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
     this.markTodoDone = this.markTodoDone.bind(this);
-    this.state = {todoItems: this.todoItems};
+    this.state = {todoItems: []};
   }
+
+  componentDidMount = async () => {
+    const response = await fetch('http://localhost:4000/todos');
+
+    if(response.ok) {
+      response.json().then((todoItems) => {
+        this.setState({
+          todoItems
+        })
+      });
+    }
+  };
+
   addItem(todoItem) {
     this.todoItems.unshift({
       index: this.todoItems.length+1,
