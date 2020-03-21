@@ -1,0 +1,17 @@
+node_modules
+.git
+.gitignore
+README.md
+LICENSE
+.vscode
+*.iml
+.editorconfig
+.eslintrc.js
+.npmrc
+Jenkinsfile
+package.json
+global.d.ts
+tsconfig.json
+tslint.json
+deploy
+__mocks__
